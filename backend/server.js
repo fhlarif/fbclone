@@ -1,20 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const app = express();
-
+const useRoutes = require("./routes/user");
+const { readdirSync } = require("fs");
 const options = {
   origin: "http://localhost:3000",
   useSuccessStatus: 200,
 };
 
 app.use(cors(options));
+app.use("/api", useRoutes);
 
-app.get("/", (req, res) => {
-  res.send("welcome from home");
+readdirSync("./routes").map((route) => {
+  app.use("/api/v1", require("./routes/" + route));
 });
-app.get("/books", (req, res) => {
-  res.send("hahahahahahahhahahaaiidhiagduogauodhguagdigaiduygiuagduagdiu");
-});
+
 app.listen(8000, () => {
-  console.log("server is lestining...");
+  console.log("server is listening...");
 });
