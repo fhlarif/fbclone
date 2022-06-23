@@ -23,6 +23,9 @@ readdirSync("./routes").map((route) => {
   app.use("/api/v1", require("./routes/" + route));
 });
 
+/* Use JSON */
+app.use(express.json());
+
 /* Database */
 mongoose
   .connect(process.env.DATABASE_URL, {
